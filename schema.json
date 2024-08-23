@@ -1,0 +1,34 @@
+{
+  "self": "https://example.com/",
+  "mappings": {
+    "phone_1": {
+      "en_US": "Phone",
+      "ru_RU": "Телефон"
+    },
+    "address_1": {
+      "en_US": "Address",
+      "ru_RU": "Адрес"
+    },
+    "humanName_1": {
+      "en_US": "Name",
+      "ru_RU": "Ф.И.О."
+    },
+    "string_1": {
+      "en_US": "Age",
+      "ru_RU": "Возраст"
+    },
+    "comment": {
+      "en_US": "Comment",
+      "ru_RU": "Комментарий"
+    }
+  },
+  "params": {
+    "param_1": {
+      "type": "string",
+      "label": {
+        "en_US": "Token",
+        "ru_RU": "Токен"
+      }
+    }
+  }
+}
