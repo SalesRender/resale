@@ -1,22 +1,37 @@
 {
-  "self": "https://example.com/",
   "mappings": {
     "phone_1": {
       "en_US": "Phone",
       "ru_RU": "Телефон"
     },
+    "phone_2": null,
     "address_1": {
       "en_US": "Address",
       "ru_RU": "Адрес"
     },
+    "address_2": null,
     "humanName_1": {
       "en_US": "Name",
       "ru_RU": "Ф.И.О."
     },
+    "humanName_2": null,
+    "email_1": null,
+    "email_2": null,
+    "uri_1": null,
+    "uri_2": null,
     "string_1": {
       "en_US": "Age",
       "ru_RU": "Возраст"
     },
+    "string_2": null,
+    "string_3": null,
+    "string_4": null,
+    "string_5": null,
+    "string_6": null,
+    "string_7": null,
+    "string_8": null,
+    "string_9": null,
+    "string_10": null,
     "comment": {
       "en_US": "Comment",
       "ru_RU": "Комментарий"
@@ -24,11 +39,45 @@
   },
   "params": {
     "param_1": {
+      "type": "bool",
+      "label": {
+        "en_US": "I read and accepted user agreement",
+        "ru_RU": "Я прочитал и принял пользовательское соглашение"
+      }
+    },
+    "param_2": {
       "type": "string",
       "label": {
-        "en_US": "Token",
-        "ru_RU": "Токен"
+        "en_US": "Offer ID",
+        "ru_RU": "ID офера"
       }
-    }
+    },
+    "param_3": {
+      "type": {
+        "digital": {
+          "en_US": "Digital goods",
+          "ru_RU": "Цифровые товары"
+        },
+        "games": {
+          "en_US": "Games",
+          "ru_RU": "Игры"
+        },
+        "Goods": {
+          "en_US": "Goods",
+          "ru_RU": "Товары"
+        }
+      },
+      "label": {
+        "en_US": "Select category",
+        "ru_RU": "Выберите категорию"
+      }
+    },
+    "param_4": null,
+    "param_5": null,
+    "param_6": null,
+    "param_7": null,
+    "param_8": null,
+    "param_9": null,
+    "param_10": null
   }
 }
