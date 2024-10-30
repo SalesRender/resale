@@ -1,0 +1,132 @@
+{
+  "description": {
+    "en_US": "Интеграция для продаже лидов в другую компанию SalesRender через CPA",
+    "ru_RU": "Integration for resale leads to another company in SalesRender with CPA"
+  },
+  "mappings": {
+    "phone_1": {
+      "en_US": "Phone 1",
+      "ru_RU": "Телефон 1"
+    },
+    "phone_2": {
+      "en_US": "Phone 2",
+      "ru_RU": "Телефон 2"
+    },
+    "address_1": {
+      "en_US": "Address 1",
+      "ru_RU": "Адрес 1"
+    },
+    "address_2": {
+      "en_US": "Address 2",
+      "ru_RU": "Адрес 2"
+    },
+    "humanName_1": {
+      "en_US": "Name 1",
+      "ru_RU": "Ф.И.О. 1"
+    },
+    "humanName_2": {
+      "en_US": "Name 2",
+      "ru_RU": "Ф.И.О. 2"
+    },
+    "email_1": {
+      "en_US": "Email 1",
+      "ru_RU": "Phone 1"
+    },
+    "email_2": {
+      "en_US": "Email 2",
+      "ru_RU": "Phone 2"
+    },
+    "uri_1": {
+      "en_US": "URI 1",
+      "ru_RU": "URI 1"
+    },
+    "uri_2": {
+      "en_US": "URI 2",
+      "ru_RU": "URI 2"
+    },
+    "string_1": {
+      "en_US": "String 1",
+      "ru_RU": "Строка 1"
+    },
+    "string_2": {
+      "en_US": "String 2",
+      "ru_RU": "Строка 2"
+    },
+    "string_3": {
+      "en_US": "String 3",
+      "ru_RU": "Строка 3"
+    },
+    "string_4": {
+      "en_US": "String 4",
+      "ru_RU": "Строка 4"
+    },
+    "string_5": {
+      "en_US": "String 5",
+      "ru_RU": "Строка 5"
+    },
+    "string_6": {
+      "en_US": "String 6",
+      "ru_RU": "Строка 6"
+    },
+    "string_7": {
+      "en_US": "String 7",
+      "ru_RU": "Строка 7"
+    },
+    "string_8": {
+      "en_US": "String 8",
+      "ru_RU": "Строка 8"
+    },
+    "string_9": {
+      "en_US": "String 9",
+      "ru_RU": "Строка 9"
+    },
+    "string_10": {
+      "en_US": "String 10",
+      "ru_RU": "Строка 10"
+    },
+    "comment": {
+      "en_US": "Comment",
+      "ru_RU": "Комментарий"
+    }
+  },
+  "params": {
+    "param_1": {
+      "type": "string",
+      "label": {
+        "en_US": "Company ID",
+        "ru_RU": "ID компании"
+      },
+      "default": null,
+      "required": true
+    },
+    "param_2": {
+      "type": "string",
+      "label": {
+        "en_US": "Offer ID",
+        "ru_RU": "ID офера"
+      },
+      "default": null,
+      "required": true
+    },
+    "param_3": null,
+    "param_4": null,
+    "param_5": null,
+    "param_6": null,
+    "param_7": null,
+    "param_8": null,
+    "param_9": null,
+    "param_10": {
+      "type": {
+        "de": {
+          "en_US": "DE"
+        }
+      },
+      "label": {
+        "en_US": "Server",
+        "ru_RU": "Сервер"
+      },
+      "default": "de",
+      "required": true
+    }
+  }
+}
