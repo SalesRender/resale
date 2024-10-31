@@ -32,7 +32,7 @@ curl_setopt($curl, CURLOPT_TIMEOUT, 15);
 
 try {
     $response = curl_exec($curl);
-    $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 } catch (Throwable $throwable) {
     http_response_code(500);
     echo json_encode([
@@ -45,11 +45,11 @@ try {
     curl_close($curl);
 }
 
-if ($code !== 201) {
+if ($httpCode !== 201) {
     http_response_code(400);
     echo json_encode([
         'error' => [
-            'message' => 'SalesRender respond with wrong status code. Expected: 201. Actual: ' . $code,
+            'message' => 'SalesRender respond with wrong status code. Expected: 201. Actual: ' . $httpCode,
             'code' => 400,
         ],
     ]);
@@ -58,6 +58,7 @@ if ($code !== 201) {
 http_response_code(201);
 $response = json_decode($response, true);
 echo json_encode([
+    'error' => null,
     'externalId' => $response['id'],
     'status' => $response['status'],
     'reward' => $response['reward'],
