@@ -507,14 +507,15 @@ SalesRender.
 
 Формат передачи данных в вебхуке зависит исключительно от системы рекламодателя или CPA-сети, однако при настройке вебхука
 мы используем именно url, полученный [в интерфейсе SalesRender](#технические-аспекты), поэтому при получении данных в
-переменной `$_GET` всегда должны быть 3 параметра, из которых формируется url для отправки вебхука в SalesRender:
+переменной `$_GET` всегда должны быть 4 параметра, из которых формируется url для отправки вебхука в SalesRender:
 - `cl` - имя кластера SalesRender
-- `cid` - id компании
+- `cid` - id компании SalesRender
+- `lpid` - id покупателя лидов в SalesRender
 - `token` - токен доступа
 
 Давайте представим, что мы продаем заказы в выдуманную CPA-сеть ExampleCPA, и из нее нам приходит POST-запрос на наш url
-`https://example.com/resale/pull.php?cl=de&cid=10&token=289ac134c13a449aac56039e6a7d5688&currency=USD` примерно следующего
-содержания:
+`https://example.com/resale/pull.php?cl=de&cid=10&lpid=20&token=289ac134c13a449aac56039e6a7d5688&currency=USD` примерно 
+следующего содержания:
 ```json5
 //Обратите внимание, это вымышленные данные исключительно для того, чтобы показать вам пример кода pull.php
 {
@@ -526,6 +527,8 @@ SalesRender.
   "orderStatus": "Rejected",
   //Сумма заказа в ExampleCPA (на случай, если вы продаете лиды за процент от итоговой стоимости)
   "orderPrice": 2000,
+  //Комментарий к заказу из ExampleCPA. Может быть null или пустой строкой. Обрезается до 255 символов 
+  "comment": "No answer from customer",
   //Статус вознаграждения. Для примера, возможные значения: 0 - в холде, 1 - подтвержден, -1 - отказан в выплате 
   "leadStatus": -1,
   //Сумма вознаграждения
@@ -557,6 +560,9 @@ $leadStatus = isset($_POST['leadStatus']) ? $_POST['leadStatus'] : null;
 $status = isset($statusMap[$leadStatus]) ? $statusMap[$leadStatus] : null; 
 
 $data = [
+    //Token для передачи лидов
+    'token' => $_GET['token'],
+
     //Для того чтобы SalesRender мог найти заказ, у в котором нужно обновить данные, ему необходимо получить либо
     //параметр id (предпочитаемый вариант), либо, если системы рекламодателя или CPA-сети не сохраняет оригинальный id,
     //нужно передать пару externalId + externalTag
@@ -569,6 +575,9 @@ $data = [
     //шейва. Оба параметра могут иметь значение null, но тогда статут лида в SalesRender не изменится
     'statusGroup' => $statusGroup,
     'status' => $status,
+    
+    //Комментарий к заказу. В нем может быть указана например причина отмены
+    'comment' => isset($_POST['comment']) ? $_POST['comment'] : null,   
    
     //Сумма вознаграждения за проданный лид, которую получите вы согласно системе учета рекламодателя или CPA-сети. Этот
     //параметр не обязателен и может быть null, однако он необходим, если выбран способ вознаграждения в виде процента от
@@ -583,7 +592,7 @@ $data = [
     ],
 ];
 
-$url = 'https://' . $_GET['cl'] . '.backend.salesrender.com/companies/' . $_GET['cid'] . '/resale/update?token=' . $_GET['token'];
+$url = 'https://' . $_GET['cl'] . '.backend.salesrender.com/companies/' . $_GET['cid'] . '/resale/update/' . $_GET['lpid'];
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
