@@ -60,6 +60,7 @@ $response = json_decode($response, true);
 echo json_encode([
     'error' => null,
     'externalId' => $response['id'],
+    'externalTag' => $response['id'],
     'status' => $response['status'],
     'reward' => $response['reward'],
 ]);
