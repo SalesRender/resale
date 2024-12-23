@@ -10,6 +10,7 @@ $data = [
     'id' => $_POST['externalId'],
     'statusGroup' => $_POST['statusGroup'],
     'status' => $_POST['status'],
+    'method' => $_POST['method'],
     'reward' => [
         'value' => $_POST['reward']['value'],
         'currency' => $_POST['reward']['currency'],

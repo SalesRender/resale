@@ -121,6 +121,8 @@
                     'currency' => 'USD',
                 ],
             ],
+            //Возможные значения: ORDER/APPROVE/BUYOUT
+            'method' => 'APPROVE',
             'reward' => [
                 'value' => 20.0,
                 'currency' => 'USD',
@@ -143,6 +145,8 @@
                     'currency' => 'EUR',
                 ],
             ],
+            //Возможные значения: ORDER/APPROVE/BUYOUT
+            'method' => 'APPROVE',
             'reward' => [
                 'value' => 30.0,
                 'currency' => 'EUR',
@@ -363,6 +367,7 @@
                     'currency' => null,
                 ],
             ],
+            'method' => null,
             'reward' => [
                 'value' => null,
                 'currency' => null,
@@ -382,6 +387,7 @@
                     'currency' => 'EUR',
                 ],
             ],
+            'method' => null,
             'reward' => [
                 'value' => 12.0,
                 'currency' => 'EUR',
@@ -487,7 +493,10 @@
   "statusGroup": "PROCESSING",
   
   //Возможные значения: null или PROCESSING, APPROVED, CANCELED
-  "status": "PROCESSING",  
+  "status": "PROCESSING",
+
+  //Способ вознаграждения. Возможные значения: null или ORDER/APPROVE/BUYOUT
+  "method": "APPROVE",
   
   //Вознаграждение в системе рекламодателя или CPA-сети, может быть null
   "reward": {
@@ -533,6 +542,8 @@ SalesRender.
   "leadStatus": -1,
   //Сумма вознаграждения
   "leadSum": 20.0,
+  //Способ вознаграждения
+  "leadMethod": "approve"
 }
 //ВЫМЫШЛЕННЫЕ ДАННЫЕ!
 ```
@@ -559,6 +570,15 @@ $statusMap = [
 $leadStatus = isset($_POST['leadStatus']) ? $_POST['leadStatus'] : null;
 $status = isset($statusMap[$leadStatus]) ? $statusMap[$leadStatus] : null; 
 
+//Преобразуем способ вознаграждения за лид из ExampleCPA в способ вознаграждения в SalesRender
+$methodMap = [
+    'order' => 'APPROVE',
+    'approve' => 'APPROVE',
+    'shipped' => 'BUYOUT',
+];
+$leadMethod = isset($_POST['leadMethod']) ? $_POST['leadMethod'] : null;
+$method = isset($methodMap[$leadMethod]) ? $methodMap[$leadMethod] : null; 
+
 $data = [
     //Token для передачи лидов
     'token' => $_GET['token'],
@@ -577,7 +597,12 @@ $data = [
     'status' => $status,
     
     //Комментарий к заказу. В нем может быть указана например причина отмены
-    'comment' => isset($_POST['comment']) ? $_POST['comment'] : null,   
+    'comment' => isset($_POST['comment']) ? $_POST['comment'] : null,
+    
+    //Способ вознаграждения за лид (за заявку/апрув/выкуп) согласно системе учета рекламодателя или CPA-сети. Этот
+    //параметр не обязателен и может быть null, однако для корректной сверки данных и автоматического выявления расхождений
+    //рекомендуется передавать его, если это возможно
+    'method' => $leadMethod,
    
     //Сумма вознаграждения за проданный лид, которую получите вы согласно системе учета рекламодателя или CPA-сети. Этот
     //параметр не обязателен и может быть null, однако он необходим, если выбран способ вознаграждения в виде процента от
