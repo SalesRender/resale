@@ -2,9 +2,20 @@
 header('Content-Type: application/json');
 
 $server = $_POST['params']['param_10'] ?? 'de';
-$companyId = $_POST['params']['param_1'];
+$companyId = $_POST['params']['param_1'] ?? null;
 $url = "https://{$server}.backend.salesrender.com/companies/{$companyId}/CPA/lead/add";
-$offerId = $_POST['params']['param_2'];
+$offerId = $_POST['params']['param_2'] ?? null;
+
+if (!isset($companyId) || !isset($offerId)) {
+    http_response_code(412);
+    echo json_encode([
+        'error' => [
+            'message' => 'Params companyId and offerId is required',
+            'code' => 412,
+        ],
+    ]);
+    return;
+}
 
 $body = [
     'offerId' => $offerId,
@@ -53,6 +64,7 @@ if ($httpCode !== 201) {
             'code' => 400,
         ],
     ]);
+    return;
 }
 
 http_response_code(201);
