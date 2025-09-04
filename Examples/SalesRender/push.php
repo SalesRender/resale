@@ -56,11 +56,21 @@ try {
     curl_close($curl);
 }
 
+$response = @json_decode($response, true);
+
 if ($httpCode !== 201) {
     http_response_code(400);
+    $message = "SalesRender respond with wrong status code. Expected: 201. Actual: {$httpCode}";
+    if (is_array($response) && isset($response['errors']) && is_array($response['errors'])) {
+        foreach ($response['errors'] as $error) {
+            $message.= '. ' . $error['message'];
+            break;
+        }
+    }
+
     echo json_encode([
         'error' => [
-            'message' => 'SalesRender respond with wrong status code. Expected: 201. Actual: ' . $httpCode,
+            'message' => $message,
             'code' => 400,
         ],
     ]);
@@ -68,7 +78,6 @@ if ($httpCode !== 201) {
 }
 
 http_response_code(201);
-$response = json_decode($response, true);
 echo json_encode([
     'error' => null,
     'externalId' => $response['id'],
