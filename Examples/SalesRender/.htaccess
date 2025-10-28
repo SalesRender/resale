@@ -9,6 +9,7 @@
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteRule ^schema\.json$ - [L]
   RewriteCond %{REQUEST_METHOD} =OPTIONS
   RewriteRule ^schema\.json$ - [R=204,END]
 </IfModule>

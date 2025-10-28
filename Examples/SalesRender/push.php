@@ -1,43 +1,50 @@
 <?php
+error_reporting(0);
 header('Content-Type: application/json');
 
-$server = $_POST['params']['param_10'] ?? 'de';
-$companyId = $_POST['params']['param_1'] ?? null;
-$url = "https://{$server}.backend.salesrender.com/companies/{$companyId}/CPA/lead/add";
-$offerId = $_POST['params']['param_2'] ?? null;
-
-if (!isset($companyId) || !isset($offerId)) {
-    http_response_code(412);
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(400);
     echo json_encode([
         'error' => [
-            'message' => 'Params companyId and offerId is required',
-            'code' => 412,
+            'message' => 'Only post request is allowed',
+            'code' => 400,
         ],
     ]);
     return;
 }
 
+$companyId = $_POST['params']['param_1'];
+$offerId = $_POST['params']['param_2'];
+$host = $_POST['params']['param_3'];
+
+$url = "https://{$host}/companies/{$companyId}/CPA/lead/add";
+
+$data = $_POST['data'];
+
 $body = [
     'offerId' => $offerId,
-    'data' => $_POST['lead']['data'],
-    'source' => $_POST['lead']['source'],
-    'timezoneOffset' => $_POST['lead']['timezone']['offset'],
+    'data' => $data['data'],
+    'source' => $data['source'],
+    'timezoneOffset' => $data['timezone']['offset'],
     'bid' => [
-        'type' => $_POST['resale']['bid']['type'],
-        'percent' => $_POST['resale']['bid']['percent'] ?? null,
-        'fixed' => $_POST['resale']['bid']['fixed']['value'] ?? null,
-        'currency' => $_POST['resale']['bid']['fixed']['currency'] ?? null,
+        'type' => $data['resale']['bid']['type'],
+        'percent' => $data['resale']['bid']['percent'] ?? null,
+        'fixed' => $data['resale']['bid']['fixed']['value'] ?? null,
+        'currency' => $data['resale']['bid']['fixed']['currency'] ?? null,
     ],
-    'externalId' => $_POST['lead']['id'],
-    'externalTag' => $_POST['lead']['lead']['webmaster']['id'],
-    'price' => $_POST['lead']['cart']['totalPrice'],
+    'externalId' => $data['id'],
+    'externalTag' => $data['lead']['webmaster']['id'],
+    'price' => $data['cart']['totalPrice'] ?? 0,
 ];
 
 $curl = curl_init();
-curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_URL,$url);
 curl_setopt($curl, CURLOPT_POST, true);
-curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($body));
-curl_setopt($curl, CURLOPT_HTTPHEADER, ["Authorization: {$_POST['token']}"]);
+curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($body));
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    "Authorization: {$_POST['token']}",
+    "Content-Type: application/json",
+]);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($curl, CURLOPT_TIMEOUT, 15);
 
