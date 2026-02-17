@@ -310,6 +310,14 @@
             'utm_term' => 'term_utm',
             'subid_1' => 'subid_first',
             'subid_2' => 'subid_second',
+            'subid_3' => 'subid_3',
+            'subid_4' => 'subid_4',
+            'subid_5' => 'subid_5',
+            'subid_6' => 'subid_6',
+            'subid_7' => 'subid_7',
+            'subid_8' => 'subid_8',
+            'subid_9' => 'subid_9',
+            'subid_10' => 'subid_10',
         ],
     ]
 ]
@@ -475,6 +483,14 @@
             'utm_term' => null,
             'subid_1' => null,
             'subid_2' => null,
+            'subid_3' => null,
+            'subid_4' => null,
+            'subid_5' => null,
+            'subid_6' => null,
+            'subid_7' => null,
+            'subid_8' => null,
+            'subid_9' => null,
+            'subid_10' => null,
         ],
     ]
 ]
