@@ -108,25 +108,21 @@
       "default": null,
       "required": true
     },
-    "param_3": null,
+    "param_3": {
+      "type": "string",
+      "label": {
+        "en_US": "Cluster host",
+        "ru_RU": "Cluster host"
+      },
+      "default": null,
+      "required": true
+    },
     "param_4": null,
     "param_5": null,
     "param_6": null,
     "param_7": null,
     "param_8": null,
     "param_9": null,
-    "param_10": {
-      "type": {
-        "de": {
-          "en_US": "DE"
-        }
-      },
-      "label": {
-        "en_US": "Server",
-        "ru_RU": "Сервер"
-      },
-      "default": "de",
-      "required": true
-    }
+    "param_10": null
   }
 }
